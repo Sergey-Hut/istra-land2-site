@@ -847,7 +847,7 @@
     .lot{padding:18px 18px 20px}
     .lot .lotnum{margin:8px 0 2px}
     .lot dl div{padding:8px 0}
-    .lot.sold{flex-direction:row;align-items:center;gap:14px;padding:13px 18px;order:9}
+    .lot.sold{flex-direction:row;align-items:center;gap:14px;padding:13px 18px}
     .lot.sold>*:not(.lotnum):not(.st){display:none}
     .lot.sold .lotnum{order:-1;margin:0;font-size:24px}
     .lot.sold .st{margin-left:auto}
@@ -1193,6 +1193,55 @@ main>section#faq{border-top:1px solid var(--line);padding-top:clamp(56px,7vw,96p
 @media(max-width:900px){#interior .quiz-head{grid-template-columns:1fr;gap:18px}#interior .quiz-head .tlink{justify-self:start}}
 /* V5-08: цепочка маршрута на планшете (вертикальная раскладка .way начинается с 760px — не пересекаемся) */
 @media(min-width:761px) and (max-width:900px){.way>div{padding:20px 12px 20px 16px}.way b{font-size:16.5px}.way span{font-size:11.5px;letter-spacing:.03em}}
+/* 26.11: на телефоне в шапке только логотип и две круглые кнопки — правило pointer:coarse не должно возвращать телефон и «Каталог» */
+@media(max-width:760px){.head-phone,.head-cta{display:none!important}}
+/* 26.11: hero на телефоне — каждый факт отдельным абзацем, без сплошной стены текста */
+@media(max-width:760px){.hero-sub .hs+.hs{margin-top:9px}.hero-sub{line-height:1.55}}
+/* 26.11: первый экран на телефоне — меньше текста, без дублей; вода и дорога только в полосе фактов */
+@media(max-width:760px){
+  .hero-sub{font-size:16px;line-height:1.6;max-width:30em}
+  .hero-sub .hs:nth-child(2),.hero-sub .hs:nth-child(3){display:none}
+  .hero-sub .hs+.hs{margin-top:10px}
+  .hero .hero-facts .wrap{grid-template-columns:1fr 1fr}
+  .hero .hero-facts .hf{display:block;padding:16px 0 18px;border:none}
+  .hero .hero-facts .hf:nth-child(3),.hero .hero-facts .hf:nth-child(4){display:none}
+  .hero .hero-facts .hf:nth-child(2){border-left:1px solid rgba(255,255,255,.2);padding-left:20px}
+  .hero .hero-facts .hf b{font-size:23px;min-width:0}
+  .hero .hero-facts .hf span{display:block;margin-top:7px;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.78);line-height:1.4}
+  .hero .hero-facts .hf .x{display:none}
+}
+@media(max-width:760px) and (max-height:600px){.hero-sub{font-size:15px}}
+/* 26.11: блок «Сравнение» — пять ответов + вопрос рынку (вместо таблицы с пустыми колонками) */
+.vs{margin-top:46px;border-top:1px solid var(--line)}
+.vs-row{display:grid;grid-template-columns:170px 1.25fr 1fr;gap:16px 36px;padding:26px 0;border-bottom:1px solid var(--line)}
+.vs-k{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--brass-deep);font-weight:500;padding-top:5px}
+.vs-a{font-size:17.5px;line-height:1.55}
+.vs-a b{font-weight:600}
+.vs-q{font-size:15px;line-height:1.55;color:var(--muted);padding-top:2px}
+.vs-q::before{content:"→";color:var(--brass);margin-right:9px}
+@media(max-width:1020px){.vs-row{grid-template-columns:150px 1fr;gap:10px 24px}.vs-q{grid-column:2}}
+@media(max-width:820px){.vs{margin-top:34px}.vs-row{grid-template-columns:1fr;gap:7px;padding:20px 0}.vs-q{grid-column:auto}.vs-k{padding-top:0}.vs-a{font-size:16.5px}.vs-q{padding-top:2px}}
+/* 26.11: строка-ссылка в середине «Интерьера» (закрывает пролёт без кнопок после цен) */
+.cta-line{margin:40px 0 6px;font-size:13px;letter-spacing:.14em;text-transform:uppercase;font-weight:500}
+.cta-line a{color:var(--brass-deep);text-decoration:none;border-bottom:1px solid var(--brass);padding-bottom:4px}
+.cta-line a:hover{color:var(--ink)}
+@media(max-width:820px){.cta-line{margin:30px 0 4px}}
+/* 26.11 — пакет А: кнопки показа прокручивают к форме */
+#showForm{scroll-margin-top:84px}
+.final-form .show-lot{margin:0}
+/* 26.11 — пакет В (часть): нижняя панель на телефоне, кнопки в «ямах» */
+.mbar{display:none}
+.tap-line .tl-q{font-size:15px;color:var(--muted);margin-right:2px}
+.ok-msg a.ok-cat{display:inline-flex;align-items:center;min-height:44px;margin-top:14px;color:var(--gold);text-decoration:underline;text-decoration-color:var(--brass);text-underline-offset:6px;font-size:13px;letter-spacing:.14em;text-transform:uppercase;font-weight:500}
+@media(max-width:760px){
+  .mbar{display:grid;grid-template-columns:1fr 1.4fr;gap:8px;position:fixed;left:0;right:0;bottom:0;z-index:58;padding:8px 12px calc(8px + env(safe-area-inset-bottom,0px));background:rgba(13,18,14,.95);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-top:1px solid rgba(169,133,79,.4);transform:translateY(110%);visibility:hidden;transition:transform .35s ease,visibility 0s .35s}
+  .mbar.on{transform:none;visibility:visible;transition:transform .35s ease}
+  .mbar a{display:flex;align-items:center;justify-content:center;min-height:46px;padding:0 8px;font-size:11.5px;letter-spacing:.11em;text-transform:uppercase;font-weight:500;text-decoration:none;text-align:center;line-height:1.25}
+  .mbar .mb-wa{border:1px solid rgba(240,235,220,.5);color:#F0EBDC}
+  .mbar .mb-show{background:var(--brass);color:#161108}
+  body.mbar-on .to-top{bottom:calc(76px + env(safe-area-inset-bottom,0px))}
+}
+@media(max-width:760px) and (orientation:landscape) and (max-height:480px){.mbar{display:none}}
 </style>
 </head>
 <body>
@@ -1251,10 +1300,10 @@ main>section#faq{border-top:1px solid var(--line);padding-top:clamp(56px,7vw,96p
 <section class="hero" style="padding:0">
   <div class="hero-bg"><img src="img4/hero-village.webp" srcset="img4/hero-village-800.webp 800w, img4/hero-village.webp 1280w" sizes="100vw" width="1280" height="720" alt="Истринское водохранилище и лес на закате — вид с высоты на посёлок «Чайковский»" fetchpriority="high"><i class="water-light" aria-hidden="true"></i></div>
   <div class="hero-inner wrap">
-    <p class="chapter" style="margin-bottom:34px"><i>Истринское водохранилище</i> <span class="ch-x">Клубный посёлок «Чайковский. Истра-Лэнд 2»</span></p>
+    <p class="chapter" style="margin-bottom:34px"><i>Истринское водохранилище</i> <span class="ch-x">Закрытый посёлок «Чайковский. Истра-Лэнд 2»</span></p>
     <h1>Готовый дом <span style="white-space:nowrap">279–283&nbsp;м²</span> у&nbsp;Истринского водохранилища. <em>Свободных — шесть из&nbsp;восьми</em></h1>
     <p style="margin:18px 0 0;font-family:var(--serif);font-size:clamp(22px,2.6vw,30px);font-weight:500;color:var(--gold)">От 40&nbsp;млн&nbsp;₽ — дом с участком</p>
-    <p class="hero-sub"><span class="hs">Дома построены в 2024 году, без внутренней отделки: газ, вода и электричество заведены.</span> <span class="hs">До воды&nbsp;— 500–700 метров, от&nbsp;МКАД&nbsp;— от&nbsp;55 минут по&nbsp;платной М-11.</span> <span class="hs">Рядом пляж «Лесные Дали» и закрытый <span style="white-space:nowrap">яхт-клуб</span> с мариной, СПА и кортами — доступ оформляется отдельно, по желанию.</span> <span class="hs">Рассрочка&nbsp;0% от&nbsp;застройщика&nbsp;— от&nbsp;6 до&nbsp;12&nbsp;месяцев.</span></p>
+    <p class="hero-sub"><span class="hs">Дома построены в 2024 году, без внутренней отделки: газ, вода и электричество заведены.</span> <span class="hs">До воды&nbsp;— 500–700 метров, от&nbsp;МКАД&nbsp;— от&nbsp;55 минут по&nbsp;платной М-11.</span> <span class="hs">Рядом пляж «Лесные Дали» и закрытый <span style="white-space:nowrap">яхт-клуб</span> с мариной, СПА и кортами.</span> <span class="hs">Рассрочка&nbsp;0% от&nbsp;застройщика&nbsp;— от&nbsp;6 до&nbsp;12&nbsp;месяцев.</span></p>
     <div class="hero-cta">
       <a class="btn gold" href="#residences">Цены и свободные дома</a>
       <a class="btn line ondark" href="#quiz">Каталог с ценами</a>
@@ -1263,7 +1312,7 @@ main>section#faq{border-top:1px solid var(--line);padding-top:clamp(56px,7vw,96p
   <a class="scroll-orb" href="#village" aria-label="Смотреть дальше"><i></i><i></i><span>↓</span></a>
   <div class="hero-facts">
     <div class="wrap">
-      <div class="hf"><b>500–700&nbsp;м</b> <span>до воды · около 10 минут пешком</span></div>      <div class="hf"><b>от 55 минут</b> <span>от МКАД · три маршрута</span></div>
+      <div class="hf"><b>500–700&nbsp;м</b> <span>до воды</span></div>      <div class="hf"><b>от 55 минут</b> <span>от МКАД<i class="x"> · три маршрута</i></span></div>
       <div class="hf"><b>8 домов</b> <span>свободны шесть</span></div>
       <div class="hf"><b>279–283&nbsp;м²</b> <span>дом · участок 9–13&nbsp;соток</span></div>
     </div>
@@ -1276,7 +1325,7 @@ main>section#faq{border-top:1px solid var(--line);padding-top:clamp(56px,7vw,96p
     <p>
       <span class="rv-item">Восемь домов.</span>
       <span class="rv-item">Своя закрытая территория.</span>
-      <span class="rv-item">Большая вода — в десяти минутах прогулки.</span>
+      <span class="rv-item">Истринское водохранилище&nbsp;— в&nbsp;500–700&nbsp;метрах.</span>
       <span class="rv-item">Клуб на первой линии — уже построен.</span>
     </p>
     <i class="manif-line manif-line-end rv-item" aria-hidden="true"></i>
@@ -1289,12 +1338,10 @@ main>section#faq{border-top:1px solid var(--line);padding-top:clamp(56px,7vw,96p
     <ul class="brief-list">
       <li>«Чайковский. Истра-Лэнд&nbsp;2» — закрытый посёлок из восьми готовых домов у&nbsp;Истринского водохранилища, Московская область, городской округ Солнечногорск.</li>
       <li>Дома построены в&nbsp;2024 году: два этажа, 279–283&nbsp;м² с&nbsp;террасами и балконами, внутренние помещения около 220–240&nbsp;м², участки 9–13&nbsp;соток в&nbsp;собственности.</li>
-      <li>Свободны шесть домов из восьми: 40, 42, 43 и 60&nbsp;млн&nbsp;₽ за дом с&nbsp;участком. Цены на 25&nbsp;ноября 2026.</li>
-      <li>Дома продаются без внутренней отделки: газ, вода, канализация и электричество 15&nbsp;кВт заведены в&nbsp;дом. Отопление и интерьер делает владелец — от 6&nbsp;месяцев, срок зависит от проекта.</li>
-      <li>До воды — <span class="nw">500–700 метров</span>. Посёлок стоит на второй линии, на первой — закрытый <span class="nw">яхт-клуб</span> «Мечта».</li>
-      <li>Выход к&nbsp;воде — через пляж «Лесные Дали» (<span class="nw">300–400&nbsp;м</span> от посёлка) или набережную <span class="nw">яхт-клуба</span>; доступ туда оформляется отдельно, по желанию.</li>
+      <li>Свободны шесть домов из восьми: от 40 до 60&nbsp;млн&nbsp;₽ за дом с&nbsp;участком. Цены на 25&nbsp;ноября 2026.</li>
+      <li>До воды — <span class="nw">500–700 метров</span>: посёлок на второй линии, на первой — закрытый <span class="nw">яхт-клуб</span> «Мечта». Выход к&nbsp;воде — через пляж «Лесные Дали» (<span class="nw">300–400&nbsp;м</span> от посёлка) или набережную <span class="nw">яхт-клуба</span>.</li>
       <li>Клуб в&nbsp;цену дома не входит: вступать или нет, решает владелец. Содержание посёлка — около <span class="nw">25–26&nbsp;тыс.&nbsp;₽</span> в&nbsp;месяц, коммуналка — по счётчикам.</li>
-      <li>От МКАД — от 55 минут по платной трассе М-11. Показы — по записи: <a class="num" href="tel:+79687744410">+7&nbsp;968&nbsp;77-444-10</a>, с&nbsp;9:00 до&nbsp;21:00.</li>
+      <li>Показы — по записи: <a class="num" href="tel:+79687744410">+7&nbsp;968&nbsp;77-444-10</a>, с&nbsp;9:00 до&nbsp;21:00.</li>
     </ul>
   </div>
 </section>
@@ -1303,10 +1350,10 @@ main>section#faq{border-top:1px solid var(--line);padding-top:clamp(56px,7vw,96p
   <div class="wrap split split-terr">
     <div>
       <p class="chapter"><i>01</i> Территория</p>
-      <h2>Своя территория на 8 домов. <br>Вокруг&nbsp;— сложившийся посёлок и парк</h2>
-      <p class="lead"><span class="hs">Внутри обжитого посёлка <span class="nw">Истра-Лэнд</span>&nbsp;— отдельная огороженная территория со своими воротами.</span> <span class="hs">Въезд&nbsp;— через охраняемый КПП посёлка <span class="nw">Истра-Лэнд</span>.</span> <span class="hs">За забором&nbsp;— частный парк около <span class="nw">10–12&nbsp;га</span>, а в&nbsp;500 метрах&nbsp;— закрытый <span class="nw">яхт-клуб</span> на берегу водохранилища.</span> <span class="hs"><span class="nw">Посёлок-сосед</span> сформирован 20&nbsp;лет назад и полностью распродан.</span></p>
+      <h2>Своя территория на 8 домов. <br>Рядом&nbsp;— жилой посёлок и частный парк</h2>
+      <p class="lead"><span class="hs">Внутри посёлка <span class="nw">Истра-Лэнд</span>&nbsp;— отдельная огороженная территория со своими воротами.</span> <span class="hs">Въезд&nbsp;— через охраняемый КПП посёлка <span class="nw">Истра-Лэнд</span>.</span> <span class="hs">За забором&nbsp;— частный парк около <span class="nw">10–12&nbsp;га</span>, а в&nbsp;500 метрах&nbsp;— закрытый <span class="nw">яхт-клуб</span> на берегу водохранилища.</span> <span class="hs"><span class="nw">Посёлку-соседу</span> 20&nbsp;лет, он полностью распродан.</span></p>
       <ul class="checks">
-        <li><b>Набережная <span class="nw">яхт-клуба</span>&nbsp;— около 500&nbsp;м</b>, десять минут пешком. Марина, СПА и пляж — для членов клуба (подробности — в разделе «Клуб»)</li>
+        <li><b>Набережная <span class="nw">яхт-клуба</span>&nbsp;— 500–700&nbsp;м от&nbsp;дома</b>. Марина, СПА и пляж — для членов клуба (подробности — в разделе «Клуб»)</li>
         <li><b>Два контура въезда</b> — КПП Истра-Лэнд и свои ворота: транзита и чужих машин нет; охрана входит в обслуживание посёлка</li>
       </ul>
     </div>
@@ -1337,7 +1384,7 @@ main>section#faq{border-top:1px solid var(--line);padding-top:clamp(56px,7vw,96p
       <h2>Восемь готовых домов в едином стиле. <br>Посёлок застроен полностью</h2>
       <a class="tlink" href="#residences" style="margin-bottom:8px">Выбрать свой дом</a>
     </div>
-    <p class="lead"><span class="hs">Плоские эксплуатируемые кровли&nbsp;— терраса на крыше в духе Фрэнка Ллойда Райта, панорамные окна в каждой комнате.</span> <span class="hs">Фундамент УШП, стены&nbsp;— керамоблок Porotherm, перекрытия монолитные; дом&nbsp;№8&nbsp;— целиком монолитная конструкция.</span> <span class="hs">Все кадры&nbsp;— фотографии готовых домов, не рендеры.</span></p>
+    <p class="lead"><span class="hs">Плоская кровля&nbsp;— это терраса на крыше в духе Фрэнка Ллойда Райта; панорамные окна&nbsp;— в&nbsp;каждой комнате.</span> <span class="hs">Фундамент УШП, стены&nbsp;— керамоблок Porotherm, перекрытия монолитные; в&nbsp;доме&nbsp;№8 несущие стены&nbsp;— монолит.</span> <span class="hs">Все кадры&nbsp;— фотографии готовых домов, не рендеры.</span></p>
     <div class="arch-grid">
       <a class="ph-b" href="img6/arch-20.webp" data-lb><img src="img6/arch-20.webp" srcset="img6/arch-20-800.webp 800w, img6/arch-20-1200.webp 1200w, img6/arch-20.webp 1400w" sizes="(max-width:820px) 92vw, 60vw" alt="Готовый дом в посёлке «Чайковский» (Истра-Лэнд 2): камень, планкен, панорамные окна" loading="lazy" width="1400" height="867"><span class="ph-tag">Фото · главный фасад</span></a>
       <a class="ph-b" href="img6/g19.webp" data-lb><img src="img6/g19.webp" srcset="img6/g19-800.webp 800w, img6/g19.webp 1100w" sizes="(max-width:820px) 45vw, (max-width:1100px) 30vw, 26vw" alt="Фронтальный фасад готового дома посёлка «Истра-Лэнд 2» на фоне леса" loading="lazy" width="1100" height="680"><span class="ph-tag">Фото · фронтальный фасад</span></a>
@@ -1396,14 +1443,14 @@ main>section#faq{border-top:1px solid var(--line);padding-top:clamp(56px,7vw,96p
     </div>
     <p class="lots-date">Цены указаны за дом с участком и актуальны на 25&nbsp;ноября 2026.</p>
     <div class="lots-grid">
+      <div class="lot sold" id="lot-01"><span class="st soldst">Продан</span><p class="lotnum">01</p><dl><div><dt>Дом · 2 этажа</dt><dd class="num">279–283&nbsp;м²</dd></div><div><dt>Участок</dt><dd class="num">—</dd></div><div><dt>Характер</dt><dd>вдоль жилой стороны посёлка</dd></div></dl><div class="lot-cta"><span>—</span></div></div>
+      <div class="lot" id="lot-02"><span class="st">Свободен</span><p class="lotnum">02</p><dl><div><dt>Дом · 2 этажа</dt><dd class="num">279–283&nbsp;м²</dd></div><div><dt>Участок</dt><dd class="num">12&nbsp;соток</dd></div><div><dt>Характер</dt><dd>вдоль жилой стороны посёлка</dd></div></dl><dl style="margin-top:0"><div><dt>Цена</dt><dd class="num">42&nbsp;млн&nbsp;₽</dd></div></dl><div class="lot-cta"><a class="lot-show" href="#show" data-show-lot="02">Записаться на показ дома 02&nbsp;→</a><a class="lot-wa" href="https://wa.me/79687744410?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%98%D0%BD%D1%82%D0%B5%D1%80%D0%B5%D1%81%D1%83%D0%B5%D1%82%20%D0%B4%D0%BE%D0%BC%20%E2%84%9602%20%D0%B2%20%D0%BF%D0%BE%D1%81%D1%91%D0%BB%D0%BA%D0%B5%20%C2%AB%D0%A7%D0%B0%D0%B9%D0%BA%D0%BE%D0%B2%D1%81%D0%BA%D0%B8%D0%B9%C2%BB.%20%D0%9F%D0%BE%D0%B4%D1%81%D0%BA%D0%B0%D0%B6%D0%B8%D1%82%D0%B5%2C%20%D0%BF%D0%BE%D0%B6%D0%B0%D0%BB%D1%83%D0%B9%D1%81%D1%82%D0%B0%2C%20%D0%BF%D0%BE%20%D1%83%D1%81%D0%BB%D0%BE%D0%B2%D0%B8%D1%8F%D0%BC." target="_blank" rel="noopener" data-wa-lot="02">Спросить в WhatsApp</a><a class="lot-plan" href="#plans">Планировки</a></div></div>
+      <div class="lot" id="lot-03"><span class="st">Свободен</span><p class="lotnum">03</p><dl><div><dt>Дом · 2 этажа</dt><dd class="num">279–283&nbsp;м²</dd></div><div><dt>Участок</dt><dd class="num">13&nbsp;соток</dd></div><div><dt>Характер</dt><dd>вдоль жилой стороны посёлка</dd></div></dl><dl style="margin-top:0"><div><dt>Цена</dt><dd class="num">43&nbsp;млн&nbsp;₽</dd></div></dl><div class="lot-cta"><a class="lot-show" href="#show" data-show-lot="03">Записаться на показ дома 03&nbsp;→</a><a class="lot-wa" href="https://wa.me/79687744410?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%98%D0%BD%D1%82%D0%B5%D1%80%D0%B5%D1%81%D1%83%D0%B5%D1%82%20%D0%B4%D0%BE%D0%BC%20%E2%84%9603%20%D0%B2%20%D0%BF%D0%BE%D1%81%D1%91%D0%BB%D0%BA%D0%B5%20%C2%AB%D0%A7%D0%B0%D0%B9%D0%BA%D0%BE%D0%B2%D1%81%D0%BA%D0%B8%D0%B9%C2%BB.%20%D0%9F%D0%BE%D0%B4%D1%81%D0%BA%D0%B0%D0%B6%D0%B8%D1%82%D0%B5%2C%20%D0%BF%D0%BE%D0%B6%D0%B0%D0%BB%D1%83%D0%B9%D1%81%D1%82%D0%B0%2C%20%D0%BF%D0%BE%20%D1%83%D1%81%D0%BB%D0%BE%D0%B2%D0%B8%D1%8F%D0%BC." target="_blank" rel="noopener" data-wa-lot="03">Спросить в WhatsApp</a><a class="lot-plan" href="#plans">Планировки</a></div></div>
+      <div class="lot sold" id="lot-04"><span class="st soldst">Продан</span><p class="lotnum">04</p><dl><div><dt>Дом · 2 этажа</dt><dd class="num">279–283&nbsp;м²</dd></div><div><dt>Участок</dt><dd class="num">—</dd></div><div><dt>Характер</dt><dd>угловой участок</dd></div></dl><div class="lot-cta"><span>—</span></div></div>
       <div class="lot" id="lot-05"><span class="st">Свободен</span><p class="lotnum">05</p><dl><div><dt>Дом · 2 этажа</dt><dd class="num">279–283&nbsp;м²</dd></div><div><dt>Участок</dt><dd class="num">9&nbsp;соток</dd></div><div><dt>Характер</dt><dd>за забором — парк, без соседей сзади</dd></div></dl><dl style="margin-top:0"><div><dt>Цена</dt><dd class="num">40&nbsp;млн&nbsp;₽</dd></div></dl><div class="lot-cta"><a class="lot-show" href="#show" data-show-lot="05">Записаться на показ дома 05&nbsp;→</a><a class="lot-wa" href="https://wa.me/79687744410?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%98%D0%BD%D1%82%D0%B5%D1%80%D0%B5%D1%81%D1%83%D0%B5%D1%82%20%D0%B4%D0%BE%D0%BC%20%E2%84%9605%20%D0%B2%20%D0%BF%D0%BE%D1%81%D1%91%D0%BB%D0%BA%D0%B5%20%C2%AB%D0%A7%D0%B0%D0%B9%D0%BA%D0%BE%D0%B2%D1%81%D0%BA%D0%B8%D0%B9%C2%BB.%20%D0%9F%D0%BE%D0%B4%D1%81%D0%BA%D0%B0%D0%B6%D0%B8%D1%82%D0%B5%2C%20%D0%BF%D0%BE%D0%B6%D0%B0%D0%BB%D1%83%D0%B9%D1%81%D1%82%D0%B0%2C%20%D0%BF%D0%BE%20%D1%83%D1%81%D0%BB%D0%BE%D0%B2%D0%B8%D1%8F%D0%BC." target="_blank" rel="noopener" data-wa-lot="05">Спросить в WhatsApp</a><a class="lot-plan" href="#plans">Планировки</a></div></div>
       <div class="lot" id="lot-06"><span class="st">Свободен</span><p class="lotnum">06</p><dl><div><dt>Дом · 2 этажа</dt><dd class="num">279–283&nbsp;м²</dd></div><div><dt>Участок</dt><dd class="num">9&nbsp;соток</dd></div><div><dt>Характер</dt><dd>за забором — парк, без соседей сзади</dd></div></dl><dl style="margin-top:0"><div><dt>Цена</dt><dd class="num">40&nbsp;млн&nbsp;₽</dd></div></dl><div class="lot-cta"><a class="lot-show" href="#show" data-show-lot="06">Записаться на показ дома 06&nbsp;→</a><a class="lot-wa" href="https://wa.me/79687744410?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%98%D0%BD%D1%82%D0%B5%D1%80%D0%B5%D1%81%D1%83%D0%B5%D1%82%20%D0%B4%D0%BE%D0%BC%20%E2%84%9606%20%D0%B2%20%D0%BF%D0%BE%D1%81%D1%91%D0%BB%D0%BA%D0%B5%20%C2%AB%D0%A7%D0%B0%D0%B9%D0%BA%D0%BE%D0%B2%D1%81%D0%BA%D0%B8%D0%B9%C2%BB.%20%D0%9F%D0%BE%D0%B4%D1%81%D0%BA%D0%B0%D0%B6%D0%B8%D1%82%D0%B5%2C%20%D0%BF%D0%BE%D0%B6%D0%B0%D0%BB%D1%83%D0%B9%D1%81%D1%82%D0%B0%2C%20%D0%BF%D0%BE%20%D1%83%D1%81%D0%BB%D0%BE%D0%B2%D0%B8%D1%8F%D0%BC." target="_blank" rel="noopener" data-wa-lot="06">Спросить в WhatsApp</a><a class="lot-plan" href="#plans">Планировки</a></div></div>
       <div class="lot" id="lot-07"><span class="st">Свободен</span><p class="lotnum">07</p><dl><div><dt>Дом · 2 этажа</dt><dd class="num">279–283&nbsp;м²</dd></div><div><dt>Участок</dt><dd class="num">9&nbsp;соток</dd></div><div><dt>Характер</dt><dd>за забором — парк, без соседей сзади</dd></div></dl><dl style="margin-top:0"><div><dt>Цена</dt><dd class="num">40&nbsp;млн&nbsp;₽</dd></div></dl><div class="lot-cta"><a class="lot-show" href="#show" data-show-lot="07">Записаться на показ дома 07&nbsp;→</a><a class="lot-wa" href="https://wa.me/79687744410?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%98%D0%BD%D1%82%D0%B5%D1%80%D0%B5%D1%81%D1%83%D0%B5%D1%82%20%D0%B4%D0%BE%D0%BC%20%E2%84%9607%20%D0%B2%20%D0%BF%D0%BE%D1%81%D1%91%D0%BB%D0%BA%D0%B5%20%C2%AB%D0%A7%D0%B0%D0%B9%D0%BA%D0%BE%D0%B2%D1%81%D0%BA%D0%B8%D0%B9%C2%BB.%20%D0%9F%D0%BE%D0%B4%D1%81%D0%BA%D0%B0%D0%B6%D0%B8%D1%82%D0%B5%2C%20%D0%BF%D0%BE%D0%B6%D0%B0%D0%BB%D1%83%D0%B9%D1%81%D1%82%D0%B0%2C%20%D0%BF%D0%BE%20%D1%83%D1%81%D0%BB%D0%BE%D0%B2%D0%B8%D1%8F%D0%BC." target="_blank" rel="noopener" data-wa-lot="07">Спросить в WhatsApp</a><a class="lot-plan" href="#plans">Планировки</a></div></div>
-      <div class="lot" id="lot-02"><span class="st">Свободен</span><p class="lotnum">02</p><dl><div><dt>Дом · 2 этажа</dt><dd class="num">279–283&nbsp;м²</dd></div><div><dt>Участок</dt><dd class="num">12&nbsp;соток</dd></div><div><dt>Характер</dt><dd>вдоль обжитой стороны посёлка</dd></div></dl><dl style="margin-top:0"><div><dt>Цена</dt><dd class="num">42&nbsp;млн&nbsp;₽</dd></div></dl><div class="lot-cta"><a class="lot-show" href="#show" data-show-lot="02">Записаться на показ дома 02&nbsp;→</a><a class="lot-wa" href="https://wa.me/79687744410?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%98%D0%BD%D1%82%D0%B5%D1%80%D0%B5%D1%81%D1%83%D0%B5%D1%82%20%D0%B4%D0%BE%D0%BC%20%E2%84%9602%20%D0%B2%20%D0%BF%D0%BE%D1%81%D1%91%D0%BB%D0%BA%D0%B5%20%C2%AB%D0%A7%D0%B0%D0%B9%D0%BA%D0%BE%D0%B2%D1%81%D0%BA%D0%B8%D0%B9%C2%BB.%20%D0%9F%D0%BE%D0%B4%D1%81%D0%BA%D0%B0%D0%B6%D0%B8%D1%82%D0%B5%2C%20%D0%BF%D0%BE%D0%B6%D0%B0%D0%BB%D1%83%D0%B9%D1%81%D1%82%D0%B0%2C%20%D0%BF%D0%BE%20%D1%83%D1%81%D0%BB%D0%BE%D0%B2%D0%B8%D1%8F%D0%BC." target="_blank" rel="noopener" data-wa-lot="02">Спросить в WhatsApp</a><a class="lot-plan" href="#plans">Планировки</a></div></div>
-      <div class="lot" id="lot-03"><span class="st">Свободен</span><p class="lotnum">03</p><dl><div><dt>Дом · 2 этажа</dt><dd class="num">279–283&nbsp;м²</dd></div><div><dt>Участок</dt><dd class="num">13&nbsp;соток</dd></div><div><dt>Характер</dt><dd>вдоль обжитой стороны посёлка</dd></div></dl><dl style="margin-top:0"><div><dt>Цена</dt><dd class="num">43&nbsp;млн&nbsp;₽</dd></div></dl><div class="lot-cta"><a class="lot-show" href="#show" data-show-lot="03">Записаться на показ дома 03&nbsp;→</a><a class="lot-wa" href="https://wa.me/79687744410?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%98%D0%BD%D1%82%D0%B5%D1%80%D0%B5%D1%81%D1%83%D0%B5%D1%82%20%D0%B4%D0%BE%D0%BC%20%E2%84%9603%20%D0%B2%20%D0%BF%D0%BE%D1%81%D1%91%D0%BB%D0%BA%D0%B5%20%C2%AB%D0%A7%D0%B0%D0%B9%D0%BA%D0%BE%D0%B2%D1%81%D0%BA%D0%B8%D0%B9%C2%BB.%20%D0%9F%D0%BE%D0%B4%D1%81%D0%BA%D0%B0%D0%B6%D0%B8%D1%82%D0%B5%2C%20%D0%BF%D0%BE%D0%B6%D0%B0%D0%BB%D1%83%D0%B9%D1%81%D1%82%D0%B0%2C%20%D0%BF%D0%BE%20%D1%83%D1%81%D0%BB%D0%BE%D0%B2%D0%B8%D1%8F%D0%BC." target="_blank" rel="noopener" data-wa-lot="03">Спросить в WhatsApp</a><a class="lot-plan" href="#plans">Планировки</a></div></div>
       <div class="lot" id="lot-08"><span class="st">Свободен</span><p class="lotnum">08</p><dl><div><dt>Дом · 2 этажа</dt><dd class="num">279–283&nbsp;м²</dd></div><div><dt>Участок</dt><dd class="num">уточняется</dd></div><div><dt>Характер</dt><dd>угловой, у леса и парка; несущие стены — монолит; возможна аренда прилегающего лесного участка 0,5–1&nbsp;га у государства — отдельным договором, условия уточнит менеджер</dd></div></dl><dl style="margin-top:0"><div><dt>Цена</dt><dd class="num">60&nbsp;млн&nbsp;₽</dd></div></dl><div class="lot-cta"><a class="lot-show" href="#show" data-show-lot="08">Записаться на показ дома 08&nbsp;→</a><a class="lot-wa" href="https://wa.me/79687744410?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%98%D0%BD%D1%82%D0%B5%D1%80%D0%B5%D1%81%D1%83%D0%B5%D1%82%20%D0%B4%D0%BE%D0%BC%20%E2%84%9608%20%D0%B2%20%D0%BF%D0%BE%D1%81%D1%91%D0%BB%D0%BA%D0%B5%20%C2%AB%D0%A7%D0%B0%D0%B9%D0%BA%D0%BE%D0%B2%D1%81%D0%BA%D0%B8%D0%B9%C2%BB.%20%D0%9F%D0%BE%D0%B4%D1%81%D0%BA%D0%B0%D0%B6%D0%B8%D1%82%D0%B5%2C%20%D0%BF%D0%BE%D0%B6%D0%B0%D0%BB%D1%83%D0%B9%D1%81%D1%82%D0%B0%2C%20%D0%BF%D0%BE%20%D1%83%D1%81%D0%BB%D0%BE%D0%B2%D0%B8%D1%8F%D0%BC." target="_blank" rel="noopener" data-wa-lot="08">Спросить в WhatsApp</a><a class="lot-plan" href="#plans">Планировки</a></div></div>
-      <div class="lot sold" id="lot-01"><span class="st soldst">Продан</span><p class="lotnum">01</p><dl><div><dt>Дом · 2 этажа</dt><dd class="num">283&nbsp;м²</dd></div><div><dt>Участок</dt><dd class="num">—</dd></div><div><dt>Характер</dt><dd>вдоль обжитой стороны посёлка</dd></div></dl><div class="lot-cta"><span>—</span></div></div>
-      <div class="lot sold" id="lot-04"><span class="st soldst">Продан</span><p class="lotnum">04</p><dl><div><dt>Дом · 2 этажа</dt><dd class="num">283&nbsp;м²</dd></div><div><dt>Участок</dt><dd class="num">—</dd></div><div><dt>Характер</dt><dd>угловой участок</dd></div></dl><div class="lot-cta"><span>—</span></div></div>
     </div>
     <p class="tap-line"><a href="tel:+79687744410">Позвонить</a><i aria-hidden="true">·</i><a href="https://wa.me/79687744410?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%98%D0%BD%D1%82%D0%B5%D1%80%D0%B5%D1%81%D1%83%D0%B5%D1%82%20%C2%AB%D0%A7%D0%B0%D0%B9%D0%BA%D0%BE%D0%B2%D1%81%D0%BA%D0%B8%D0%B9%C2%BB." target="_blank" rel="noopener">WhatsApp</a></p>
       </div>
@@ -1416,7 +1463,7 @@ main>section#faq{border-top:1px solid var(--line);padding-top:clamp(56px,7vw,96p
       <h2>Дом построен, коммуникации заведены. <br>Отопление, отделка и интерьер&nbsp;— по вашему проекту</h2>
       <a class="tlink" href="#plans" style="margin-bottom:8px">Планировки двух типов дома</a>
     </div>
-    <p class="lead"><span class="hs">Shell &amp; Core&nbsp;— дом без внутренней отделки.</span> <span class="hs">Фундамент, несущие стены, перекрытия и кровля построены.</span> <span class="hs">Газ, вода, канализация и электричество заведены в дом.</span> <span class="hs">Котёл, отопление, разводку и интерьер вы делаете по своему проекту&nbsp;— от 6 месяцев; срок зависит от проекта.</span> <span class="hs">Потолки первого этажа&nbsp;— 3,6&nbsp;м в конструктиве (≈3,3&nbsp;м после отделки).</span> <span class="hs">Планировкой предусмотрены места под сауну и два камина&nbsp;— в гостиной и на террасе; делать их или нет, решаете вы.</span> <span class="hs">При покупке дома можно обсудить дизайн-проект в подарок.</span> <span class="hs">Ниже&nbsp;— концепции интерьера для этих домов.</span></p>
+    <p class="lead"><span class="hs">Shell &amp; Core&nbsp;— дом без внутренней отделки.</span> <span class="hs">Фундамент, несущие стены, перекрытия и кровля построены.</span> <span class="hs">Газ, вода, канализация и электричество заведены в дом.</span> <span class="hs">Котёл, отопление, разводку и интерьер вы делаете по своему проекту&nbsp;— от 6 месяцев; срок зависит от проекта.</span> <span class="hs">Потолки первого этажа&nbsp;— 3,6&nbsp;м до отделки (≈3,3&nbsp;м после).</span> <span class="hs">Планировкой предусмотрены места под сауну и два камина&nbsp;— в гостиной и на террасе; делать их или нет, решаете вы.</span> <span class="hs">При покупке дома можно обсудить дизайн-проект в подарок.</span> <span class="hs">Ниже&nbsp;— концепции интерьера для этих домов.</span></p>
     <div class="int-grid">
       <a class="cn-b" href="img2/int-living.webp" data-lb><img src="img2/int-living.webp" srcset="img2/int-living-800.webp 800w, img2/int-living-1200.webp 1200w, img2/int-living.webp 1600w" sizes="(max-width:820px) 45vw, (max-width:1100px) 30vw, 26vw" alt="Гостиная дома 279&nbsp;м² — концепция дизайн-проекта, посёлок «Чайковский» в Подмосковье" loading="lazy" width="1600" height="1120"><span class="ph-tag">Концепция · гостиная</span></a>
       <a class="cn-b" href="img2/int-kitchen.webp" data-lb><img src="img2/int-kitchen.webp" srcset="img2/int-kitchen-800.webp 800w, img2/int-kitchen-1200.webp 1200w, img2/int-kitchen.webp 1600w" sizes="(max-width:820px) 45vw, (max-width:1100px) 30vw, 26vw" alt="Кухня-столовая — концепция" loading="lazy" width="1600" height="1120"><span class="ph-tag">Концепция · кухня-столовая</span></a>
@@ -1432,6 +1479,7 @@ main>section#faq{border-top:1px solid var(--line);padding-top:clamp(56px,7vw,96p
       <a class="ph-b" href="img5/s25-stairs.webp" data-lb><img src="img5/s25-stairs.webp" srcset="img5/s25-stairs-800.webp 800w, img5/s25-stairs-1200.webp 1200w, img5/s25-stairs.webp 1536w" sizes="(max-width:1100px) 30vw, 26vw" alt="Shell & Core: пространство под лестницу" loading="lazy" width="1536" height="953"><span class="ph-tag">Фото · место лестницы</span></a>
     </div>
     <p class="capline">Так дом выглядит сегодня: свободные планы, свет с трёх сторон. Концепции выше показывают, каким он может стать.</p>
+    <p class="cta-line noprint"><a href="#quiz">Каталог с ценами и планировками →</a></p>
     <div class="plan-types" id="plans">
       <h3 class="pt-title">Планировки: два типа дома</h3>
       <p class="lead"><span class="hs">Дома построены по двум проектам.</span> <span class="hs">Площади комнат&nbsp;— по официальным планам застройщика; нажмите на план, чтобы увеличить.</span></p>
@@ -1486,7 +1534,7 @@ main>section#faq{border-top:1px solid var(--line);padding-top:clamp(56px,7vw,96p
   <div class="wrap">
     <p class="chapter"><i>05</i> Клуб</p>
     <h2>Марина, СПА и корты уже построены&nbsp;— в&nbsp;500 метрах от&nbsp;посёлка</h2>
-    <p class="lead"><span class="hs">На первой линии воды стоит закрытый яхт-клуб «Мечта».</span> <span class="hs">Членство оформляется отдельно от покупки дома и по правилам клуба: вступить можно сразу, позже&nbsp;— или не вступать вовсе.</span></p>
+    <p class="lead"><span class="hs">На первой линии воды стоит закрытый яхт-клуб «Мечта».</span> <span class="hs">Членство&nbsp;— отдельно от покупки дома и по правилам клуба: вступить можно сразу или позже&nbsp;— по вашему желанию.</span></p>
     <div class="terr-stack club-stack" id="clubStack">
       <button class="tk tk-top rv-item" type="button" aria-label="Показать этот кадр крупно">
         <span class="tk-frame"><img class="tk-ph tk-ph-a is-active" src="img5/cl-14.webp" srcset="img5/cl-14-800.webp 800w, img5/cl-14.webp 1280w" sizes="(max-width:820px) 45vw, 35vw" alt="Терраса клуба с креслом-коконом, катер на воде" loading="lazy" width="1280" height="960"><img class="tk-ph tk-ph-b" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="" aria-hidden="true"></span>
@@ -1507,18 +1555,18 @@ main>section#faq{border-top:1px solid var(--line);padding-top:clamp(56px,7vw,96p
     <div class="club-grid">
       <div class="club-cell"><h3>Марина и яхтинг</h3><p>Причал на 25–30 лодок и ангар зимнего хранения, прямой выход на большую воду.</p></div>
       <div class="club-cell"><h3>СПА и сауны</h3><p>СПА-комплекс клуба в 5 метрах от воды: парные, хамам, сауна, чаны на террасе — для членов клуба.</p></div>
-      <div class="club-cell"><h3>Пляжи</h3><p>Пляж и набережная яхт-клуба — для членов клуба. «Лесные Дали» — пляж для жителей посёлка Истра-Лэнд, доступ оформляется отдельно.</p></div>
-      <div class="club-cell"><h3>Теннис и падел-корт</h3><p>Около десяти минут пешком; лесные маршруты — для бега и прогулок.</p></div>
+      <div class="club-cell"><h3>Пляжи</h3><p>Пляж и набережная яхт-клуба — для членов клуба. «Лесные Дали» — пляж для жителей посёлка Истра-Лэнд.</p></div>
+      <div class="club-cell"><h3>Теннис и падел-корт</h3><p>Корты — для членов клуба, 500–700&nbsp;м от дома. Лесные маршруты — для бега и прогулок.</p></div>
     </div>
     <div class="strip strip-4" style="margin-top:44px">
       <a class="ph-b" href="img6/marina-15.webp" data-lb><img src="img6/marina-15.webp" srcset="img6/marina-15-800.webp 800w, img6/marina-15.webp 1280w" sizes="(max-width:820px) 45vw, 22vw" alt="Причал яхт-клуба «Мечта» с лодками" loading="lazy" width="1280" height="960"><span class="ph-tag">Фото · причал яхт-клуба</span></a>
-      <a class="ph-b" href="img6/tennis-36.webp" data-lb><img src="img6/tennis-36.webp" srcset="img6/tennis-36-800.webp 800w, img6/tennis-36.webp 1260w" sizes="(max-width:820px) 45vw, 22vw" alt="Теннисный корт" loading="lazy" width="1260" height="722"><span class="ph-tag">Фото · теннисный корт</span></a>
-      <a class="ph-b" href="img6/padel-37.webp" data-lb><img src="img6/padel-37.webp" srcset="img6/padel-37-800.webp 800w, img6/padel-37.webp 1260w" sizes="(max-width:820px) 45vw, 22vw" alt="Падел-корт" loading="lazy" width="1260" height="798"><span class="ph-tag">Фото · падел-корт</span></a>
-      <a class="ph-b" href="img6/kids-38.webp" data-lb><img src="img6/kids-38.webp" srcset="img6/kids-38-800.webp 800w, img6/kids-38.webp 1260w" sizes="(max-width:820px) 45vw, 22vw" alt="Детская площадка в соснах" loading="lazy" width="1260" height="742"><span class="ph-tag">Фото · детская площадка</span></a>
+      <a class="ph-b" href="img6/tennis-36.webp" data-lb><img src="img6/tennis-36.webp" srcset="img6/tennis-36-800.webp 800w, img6/tennis-36.webp 1260w" sizes="(max-width:820px) 45vw, 22vw" alt="Теннисный корт" loading="lazy" width="1260" height="665"><span class="ph-tag">Фото · теннисный корт</span></a>
+      <a class="ph-b" href="img6/padel-37.webp" data-lb><img src="img6/padel-37.webp" srcset="img6/padel-37-800.webp 800w, img6/padel-37.webp 1260w" sizes="(max-width:820px) 45vw, 22vw" alt="Падел-корт" loading="lazy" width="1260" height="655"><span class="ph-tag">Фото · падел-корт</span></a>
+      <a class="ph-b" href="img6/kids-38.webp" data-lb><img src="img6/kids-38.webp" srcset="img6/kids-38-800.webp 800w, img6/kids-38.webp 1260w" sizes="(max-width:820px) 45vw, 22vw" alt="Детская площадка в соснах" loading="lazy" width="1260" height="648"><span class="ph-tag">Фото · детская площадка</span></a>
     </div>
-    <div class="club-val"><p>В яхт-клубе «Мечта» — ресторан «для своих», клубный дом с бильярдом, кинозалом и роялем, мини-футбол и спортзал. От посёлка — около десяти минут пешком.</p></div>
-    <p class="lead" style="margin-top:32px"><span class="hs">Клуб и пляж&nbsp;— отдельно от цены дома.</span> <span class="hs">Можно никуда не вступать, оформить доступ на пляж «Лесные Дали» (300–400&nbsp;м от посёлка) или подать заявку в яхт-клуб «Мечта».</span> <span class="hs">Условия устанавливают клуб и пляж; действующие назовёт менеджер.</span></p>
-    <p class="tap-line"><a href="tel:+79687744410">Позвонить</a><i aria-hidden="true">·</i><a href="https://wa.me/79687744410?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%98%D0%BD%D1%82%D0%B5%D1%80%D0%B5%D1%81%D1%83%D0%B5%D1%82%20%C2%AB%D0%A7%D0%B0%D0%B9%D0%BA%D0%BE%D0%B2%D1%81%D0%BA%D0%B8%D0%B9%C2%BB." target="_blank" rel="noopener">WhatsApp</a></p>
+    <div class="club-val"><p>В яхт-клубе «Мечта» — ресторан «для своих», клубный дом с бильярдом, кинозалом и роялем, мини-футбол и спортзал. От посёлка — 500–700&nbsp;м.</p></div>
+    <p class="lead" style="margin-top:32px"><span class="hs">Клуб и пляж&nbsp;— отдельно от цены дома.</span> <span class="hs">Вступление в клуб&nbsp;— по вашему желанию: можно оформить доступ на пляж «Лесные Дали» (300–400&nbsp;м от посёлка) или подать заявку в яхт-клуб «Мечта».</span> <span class="hs">Условия определяют клуб и пляж; действующие назовёт менеджер.</span></p>
+    <p class="tap-line"><a href="#show">Записаться на показ</a><i aria-hidden="true">·</i><a href="https://wa.me/79687744410?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%98%D0%BD%D1%82%D0%B5%D1%80%D0%B5%D1%81%D1%83%D0%B5%D1%82%20%C2%AB%D0%A7%D0%B0%D0%B9%D0%BA%D0%BE%D0%B2%D1%81%D0%BA%D0%B8%D0%B9%C2%BB." target="_blank" rel="noopener">WhatsApp</a></p>
   </div>
 </section>
 
@@ -1553,31 +1601,40 @@ main>section#faq{border-top:1px solid var(--line);padding-top:clamp(56px,7vw,96p
         <p class="near-note">До школ и детских садов Солнечногорска&nbsp;— 20 минут на машине.</p>
       </div>
     </div>
+    <p class="tap-line"><a href="#show">Записаться на показ</a><i aria-hidden="true">·</i><a href="https://wa.me/79687744410?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%98%D0%BD%D1%82%D0%B5%D1%80%D0%B5%D1%81%D1%83%D0%B5%D1%82%20%C2%AB%D0%A7%D0%B0%D0%B9%D0%BA%D0%BE%D0%B2%D1%81%D0%BA%D0%B8%D0%B9%C2%BB." target="_blank" rel="noopener">WhatsApp</a></p>
   </div>
 </section>
 
 <section class="sec-air" id="care" style="padding-bottom:clamp(56px,7vw,96px)">
   <div class="wrap">
-    <p class="chapter"><i>07</i> Вторая резиденция</p>
-    <h2>Посёлок обслуживают круглый год. <br>Охрана, дороги и свет&nbsp;— на управляющей компании</h2>
-    <p class="lead"><span class="hs">Загородный дом в Подмосковье, в котором не обязательно жить постоянно.</span> <span class="hs">Приезжайте на выходные&nbsp;— в остальное время за посёлком следит управляющая компания.</span></p>
+    <p class="chapter"><i>07</i> Жизнь в посёлке</p>
+    <h2>Для постоянной жизни и для выходных. <br>Посёлок обслуживают круглый&nbsp;год</h2>
+    <p class="lead"><span class="hs">Охрана, освещение, уборка дорог и вывоз мусора&nbsp;— работа управляющей компании посёлка.</span> <span class="hs">Живёте здесь постоянно или приезжаете на выходные&nbsp;— территория обслуживается одинаково.</span></p>
     <div class="care-grid care-3">
-      <div class="care"><i>01</i><h3>Обжитый посёлок с первого дня</h3><p>Заезд через сложившийся <span class="nw">Истра-Лэнд</span>: асфальт, освещение, соседи живут здесь по <span class="nw">15–20 лет</span>.</p></div>
+      <div class="care"><i>01</i><h3>Жилой посёлок с первого дня</h3><p>Заезд через жилой <span class="nw">Истра-Лэнд</span>: асфальт, освещение, соседи живут здесь по <span class="nw">15–20 лет</span>.</p></div>
       <div class="care"><i>02</i><h3>Содержание посёлка — около <span class="nw">25–26&nbsp;тыс.&nbsp;₽</span> в&nbsp;месяц</h3><p>В эту сумму входят охрана, освещение, уборка дорог и вывоз мусора. Газ, вода и электричество — по счётчикам. Клуб и пляж «Лесные Дали» — отдельно, по желанию. Данные на ноябрь 2026.</p></div>
       <div class="care"><i>03</i><h3>Коммуникации заведены в дом</h3><p>Магистральный газ, центральные вода и канализация, электричество 15&nbsp;кВт (3 фазы). Котёл, отопление и разводку вы делаете вместе с интерьером. После этого дом готов и для выходных, и для постоянного проживания круглый год.</p></div>
     </div>
+    <div class="cta-strip"><p>Посмотрите посёлок вживую — показ по записи, с 9:00 до 21:00.</p><a class="btn gold" href="#show">Записаться на показ</a></div>
   </div>
 </section>
 
-<section id="why-now" style="border-top:2px solid rgba(169,133,79,.45)">
+<section id="compare">
   <div class="wrap">
-    <p class="chapter"><i>08</i> Почему сейчас</p>
-    <h2>В&nbsp;посёлке восемь участков. <br>Все застроены&nbsp;— дом можно осмотреть до&nbsp;покупки</h2>
-    <p class="lead"><span class="hs">Марина, СПА и корты клуба уже построены.</span> <span class="hs">Дом можно обойти и измерить, а не представлять по рендеру.</span></p>
-    <div class="market-grid">
-      <div class="mstat"><b class="num">6 из 8</b> <p>свободны на 25&nbsp;ноября 2026</p></div>
-      <div class="mstat"><b class="num">2024</b> <p>год постройки всех восьми домов</p></div>
-      <div class="mstat"><b class="num">500–700&nbsp;м</b> <p>до Истринского водохранилища</p></div>
+    <p class="chapter"><i>08</i> Сравнение</p>
+    <h2>Что вы получаете здесь&nbsp;— <br>и что спросить в любом другом посёлке</h2>
+    <p class="lead"><span class="hs">По каждому из пяти пунктов у «Чайковского» ответ уже готов.</span> <span class="hs">Вопросы со стрелкой задайте на любом другом показе&nbsp;— и сравните сами.</span></p>
+    <div class="vs">
+      <div class="vs-row"><div class="vs-k">Готовность</div><div class="vs-a"><b>Дом построен, без отделки.</b> Отопление и интерьер&nbsp;— от 6&nbsp;месяцев.</div><div class="vs-q">В другом посёлке: стройка с нуля займёт от года и больше. Здесь дом уже готов.</div></div>
+      <div class="vs-row"><div class="vs-k">Большая вода</div><div class="vs-a"><b>Истринское водохранилище&nbsp;— в <span class="nw">500–700&nbsp;метрах</span>.</b> Набережная и марина яхт-клуба&nbsp;— для членов клуба.</div><div class="vs-q">В другом посёлке: сколько ехать до большой воды?</div></div>
+      <div class="vs-row"><div class="vs-k">Соседи</div><div class="vs-a"><b>Всего 8&nbsp;домов за своим забором.</b></div><div class="vs-q">В другом посёлке: сколько сотен соседей?</div></div>
+      <div class="vs-row"><div class="vs-k">Цена</div><div class="vs-a"><b>От 40 до 60&nbsp;млн&nbsp;₽ за готовый дом с участком&nbsp;— цены открыты.</b> Рассрочка&nbsp;0% от застройщика.</div><div class="vs-q">В другом посёлке: цена на сайте&nbsp;— или «по запросу»?</div></div>
+      <div class="vs-row"><div class="vs-k">Инфраструктура у воды</div><div class="vs-a"><b>Марина, СПА и корты уже построены.</b> Доступ&nbsp;— по членству в клубе.</div><div class="vs-q">В другом посёлке: инфраструктура построена&nbsp;— или в планах?</div></div>
+    </div>
+
+    <div class="cta-strip hot">
+      <p>Цены по домам и планы этажей обоих типов дома — в каталоге.</p>
+      <a class="btn gold" href="#quiz">Каталог с ценами</a>
     </div>
   </div>
 </section>
@@ -1586,16 +1643,16 @@ main>section#faq{border-top:1px solid var(--line);padding-top:clamp(56px,7vw,96p
   <div class="wrap">
     <p class="chapter"><i>09</i> Сделка</p>
     <h2>Сначала документы&nbsp;— вашему юристу. <br>Потом аванс</h2>
-    <p class="lead"><span class="hs">Земля в собственности, не в аренде: категория сельхозназначения, вид разрешённого использования&nbsp;— «дачное строительство».</span> <span class="hs">Рассрочка 0% от застройщика.</span> <span class="hs">Документы&nbsp;— вашему юристу до аванса.</span></p>
+    <p class="lead"><span class="hs">Земля в собственности, не в аренде: категория сельхозназначения, вид разрешённого использования&nbsp;— «дачное строительство».</span> <span class="hs">Рассрочка 0% от застройщика.</span></p>
     <div class="safe-grid safe-grid-3">
-      <div class="safe"><h3>Земля в собственности</h3><p>Не аренда гослесфонда, как у соседнего клуба, а собственность. Правовой статус открыт для проверки вашим юристом.</p></div>
-      <div class="safe"><h3>Документы — до аванса</h3><p>Правоустанавливающие, технические, межевые, документы на подключение газа, воды и электричества — передаём вашему юристу до любых платежей.</p></div>
-      <div class="safe"><h3>Рассрочка 0% от застройщика</h3><p>Без банка, на срок от 6 до 12 месяцев. Условия индивидуальные — обсуждаются после встречи в посёлке.</p></div>
+      <div class="safe"><h3>Земля в собственности</h3><p>Собственность! Правовой статус открыт для проверки вашим юристом.</p></div>
+      <div class="safe"><h3>Документы — до аванса</h3><p>Документы на землю и дом, межевые и технические планы, документы на подключение газа, воды и электричества — передаём вашему юристу до любых платежей.</p></div>
+      <div class="safe"><h3>Рассрочка 0% от застройщика</h3><p>Без банка, на срок от 6 до 12 месяцев.<br>Условия индивидуальные — обсуждаются после встречи в посёлке.</p></div>
     </div>
     <details class="docs-toggle">
       <summary>Проверить документы</summary>
       <ul>
-        <li>Правоустанавливающие документы на землю</li>
+        <li>Документы о праве собственности на землю</li>
         <li>Кадастровые номера каждого дома</li>
         <li>Межевые и технические планы</li>
         <li>Документы на подключение газа, воды и электричества</li>
@@ -1608,7 +1665,7 @@ main>section#faq{border-top:1px solid var(--line);padding-top:clamp(56px,7vw,96p
       <h3>Как проходит покупка</h3>
       <ol class="buy-steps">
         <li><i>1</i><p>Вы смотрите дома на месте — показ по записи.</p></li>
-        <li><i>2</i><p>Ваш юрист получает документы на землю и дом — до любых платежей.</p></li>
+        <li><i>2</i><p>Документы на землю и дом — у вас до любых платежей.</p></li>
         <li><i>3</i><p>Договор и оплата — сразу или в рассрочку от застройщика.</p></li>
         <li><i>4</i><p>Отопление, отделка и интерьер — от 6 месяцев, срок зависит от проекта.</p></li>
       </ol>
@@ -1617,52 +1674,25 @@ main>section#faq{border-top:1px solid var(--line);padding-top:clamp(56px,7vw,96p
       <div class="mono">L</div>
       <div>
         <h3>LOTSMAN DEVELOPMENT</h3>
-        <p>Команда проекта работает с загородными посёлками Подмосковья с 2008 года. Реквизиты продавца и документы — вашему юристу до аванса.</p>
+        <p>Команда проекта работает с загородными посёлками Подмосковья с 2008 года. Реквизиты продавца — до аванса.</p>
       </div>
-      <a class="btn line" href="#show">Встретиться на объекте</a>
+      <a class="btn line" href="#show">Записаться на показ</a>
     </div>
     <p class="tap-line"><a href="tel:+79687744410">Позвонить</a><i aria-hidden="true">·</i><a href="https://wa.me/79687744410?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%98%D0%BD%D1%82%D0%B5%D1%80%D0%B5%D1%81%D1%83%D0%B5%D1%82%20%C2%AB%D0%A7%D0%B0%D0%B9%D0%BA%D0%BE%D0%B2%D1%81%D0%BA%D0%B8%D0%B9%C2%BB." target="_blank" rel="noopener">WhatsApp</a></p>
   </div>
 </section>
 
-<section id="compare">
-  <div class="wrap">
-    <p class="chapter"><i>10</i> Сравнение</p>
-    <h2>Что вы получаете здесь&nbsp;— <br>и что предлагает рынок за те же деньги</h2>
-    <p class="lead"><span class="hs">Чем «Чайковский» отличается от готовых коттеджей ближней Новой Риги, больших посёлков и стройки с нуля.</span></p>
-    <div class="cmp-scroll">
-      <table class="cmp-t">
-        <thead><tr><th scope="col">Критерий</th><th scope="col">Чайковский</th><th scope="col">Готовые дома ближней Новой Риги</th><th scope="col">Большие посёлки</th><th scope="col">Строить самому</th></tr></thead>
-        <tbody>
-          <tr><td>Готовность</td><td class="yes"><b>Дом построен, без отделки: отопление и интерьер — от 6 месяцев</b></td><td>Зависит от посёлка</td><td>Зависит от посёлка</td><td class="no">Дом ещё предстоит построить: сначала стройка, потом отделка</td></tr>
-          <tr><td>Большая вода</td><td class="yes"><b>До Истринского водохранилища 500–700&nbsp;м; набережная и марина — в яхт-клубе, для членов клуба</b></td><td class="no">Другое направление</td><td>Зависит от посёлка</td><td>Зависит от участка</td></tr>
-          <tr><td>Соседи</td><td class="yes"><b>Всего 8 семей</b></td><td>Зависит от посёлка</td><td>Зависит от посёлка</td><td>Зависит от участка</td></tr>
-          <tr><td>Цена</td><td><b>Открыта на сайте: от 40 до 60&nbsp;млн&nbsp;₽ за дом с участком; рассрочка 0% от застройщика</b></td><td>Зависит от посёлка</td><td>Зависит от посёлка</td><td>Зависит от проекта и подрядчика</td></tr>
-          <tr><td>Инфра&shy;структура у воды</td><td class="yes"><b>Марина, СПА и корты уже построены — доступ по членству в клубе</b></td><td>Зависит от посёлка</td><td>Зависит от посёлка</td><td class="no">Только то, что построите сами</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <p class="cmp-fnote">Где указано «зависит от посёлка» или «зависит от участка» — сравните по объявлениям.</p>
-    <p class="cmp-mnote">На телефоне показаны главные колонки; полная таблица&nbsp;— на компьютере.</p>
-    <p class="cmp-snote">Таблица шире экрана — листайте её вбок →</p>
-    <div class="cta-strip hot">
-      <p>Цены по домам и планы этажей обоих типов дома — в каталоге.</p>
-      <a class="btn gold" href="#quiz">Каталог с ценами</a>
-    </div>
-  </div>
-</section>
-
 <section class="faq" id="faq" style="padding-top:0">
   <div class="wrap">
-    <p class="chapter"><i>11</i> Вопросы</p>
+    <p class="chapter"><i>10</i> Вопросы</p>
     <h2>Вопросы, которые вы всё равно зададите. <br>Отвечаем заранее</h2>
     <div class="faq-cols">
       <details name="faq"><summary>Сколько стоит дом на Истринском водохранилище?</summary><p>На ноябрь 2026: от 40 до 60&nbsp;млн&nbsp;₽ за дом с участком — цены открыты. 40&nbsp;млн&nbsp;₽ — дома у парка с участком 9&nbsp;соток; 42–43&nbsp;млн&nbsp;₽ — с участком 12–13&nbsp;соток; 60&nbsp;млн&nbsp;₽ — угловой дом у леса с монолитными несущими стенами. Дома построены и продаются без внутренней отделки. Посёлок — на второй линии, до воды 500–700 метров. Цена каждого свободного дома — в разделе «Дома и цены».</p></details>
       <details name="faq"><summary>В каком состоянии дом и что остаётся сделать?</summary><p>Дом построен: фундамент, несущие стены, перекрытия, кровля; газ, вода, канализация и электричество 15&nbsp;кВт заведены в дом. Остаётся вам: котёл и отопление, внутренняя разводка, перегородки, отделка и интерьер. На это уходит от 6 месяцев — срок зависит от проекта.</p></details>
       <details name="faq"><summary>Можно ли купить готовый дом и сразу заехать?</summary><p>Сразу — нет. Дом построен, газ, вода, канализация и электричество заведены, но отопление, отделку и интерьер делает владелец. На это уходит от 6 месяцев; срок зависит от проекта и подрядчика. При покупке можно обсудить дизайн-проект в подарок.</p></details>
-      <details name="faq"><summary>Посёлок стоит на берегу Истринского водохранилища?</summary><p>Нет, это вторая линия: до воды 500–700 метров. На первой линии — закрытый яхт-клуб «Мечта» с набережной и мариной. Выход к воде — через пляж «Лесные Дали» (300–400 метров от посёлка) или набережную яхт-клуба; доступ туда оформляется отдельно, по желанию.</p></details>
-      <details name="faq"><summary>Клуб входит в цену дома?</summary><p>Нет, членство оформляется и оплачивается отдельно. Яхт-клуб «Мечта» — соседняя закрытая территория на первой линии; до ворот клуба от посёлка около 500 метров. По договорённости с клубом владельцы домов «Чайковского» могут подать заявку на вступление — сразу, позже или не вступать вовсе. Порядок и условия устанавливает клуб, действующие назовёт менеджер.</p></details>
-      <details name="faq"><summary>Сколько стоит содержание дома в посёлке?</summary><p>Около 25–26&nbsp;тыс.&nbsp;₽ в месяц управляющей компании посёлка (данные на ноябрь 2026): охрана, освещение, уборка дорог зимой и летом, вывоз мусора — территорию посёлка обслуживают круглый год. Коммуналка — отдельно, по счётчикам. Клуб и пляж «Лесные Дали» — по желанию; условия устанавливают клуб и пляж, действующие назовёт менеджер.</p></details>
+      <details name="faq"><summary>Посёлок стоит на берегу Истринского водохранилища?</summary><p>Нет, это вторая линия: до воды 500–700 метров. На первой линии — закрытый яхт-клуб «Мечта» с набережной и мариной. Выход к воде — через пляж «Лесные Дали» (300–400 метров от посёлка) или набережную яхт-клуба.</p></details>
+      <details name="faq"><summary>Клуб входит в цену дома?</summary><p>Нет, членство в клубе оплачивается отдельно. Яхт-клуб «Мечта» — соседняя закрытая территория на первой линии; до ворот клуба от посёлка около 500 метров. По договорённости с клубом владельцы домов «Чайковского» могут подать заявку на вступление — сразу или позже, по своему желанию. Порядок и условия определяет клуб, действующие назовёт менеджер.</p></details>
+      <details name="faq"><summary>Сколько стоит содержание дома в посёлке?</summary><p>Около 25–26&nbsp;тыс.&nbsp;₽ в месяц управляющей компании посёлка (данные на ноябрь 2026): охрана, освещение, уборка дорог зимой и летом, вывоз мусора — территорию посёлка обслуживают круглый год. Коммуналка — отдельно, по счётчикам. Клуб и пляж «Лесные Дали» — по желанию; условия определяют клуб и пляж, действующие назовёт менеджер.</p></details>
       <details name="faq"><summary>Можно ли купить дом в рассрочку?</summary><p>Да. Рассрочка 0% — напрямую от застройщика, без банка, на срок от 6 до 12 месяцев. Условия индивидуальные и обсуждаются после встречи в посёлке.</p></details>
       <details name="faq"><summary>Можно ли купить дом в ипотеку?</summary><p>Ипотека возможна на обычных рыночных условиях — решение принимает банк. Льготные программы на такие дома, как правило, не распространяются. Подробности — у менеджера.</p></details>
       <details name="faq"><summary>Какой статус у земли?</summary><p>Земля в собственности, не в аренде: категория — сельхозназначение, вид разрешённого использования — «дачное строительство». Выписку ЕГРН и документы на участок и дом ваш юрист получит до аванса.</p></details>
@@ -1670,6 +1700,20 @@ main>section#faq{border-top:1px solid var(--line);padding-top:clamp(56px,7vw,96p
       <details name="faq"><summary>Насколько это ликвидно?</summary><p>Прогнозов по ценам мы не даём. Факты такие: два дома из восьми уже проданы, все восемь построены, до Истринского водохранилища — 500–700 метров.</p></details>
       <details name="faq"><summary>Сколько ехать от Москвы до посёлка «Чайковский. Истра-Лэнд 2»?</summary><p>От 55 минут от МКАД по платной трассе М-11 (Ленинградское направление, через Солнечногорск) — это основной маршрут. Есть ещё два: Пятницкое шоссе — от 50 минут без пробок, но в Зеленограде они часты; Новорижское шоссе с запада — около 1 ч 20 мин, запасной вариант.</p></details>
       <details name="faq"><summary>«Чайковский», «Истра-Лэнд 2», «Истра Лэнд 2» — это один посёлок?</summary><p>Да. Посёлок из восьми домов у Истринского водохранилища называется «Чайковский. Истра-Лэнд 2». На Яндекс Картах он записан как «Истра Лэнд 2»; встречаются также написания «Истра Ленд 2», «КП Истра-Лэнд 2», «коттеджный посёлок Истра-Лэнд 2» и Istra Land 2.</p></details>
+    </div>
+    <p class="tap-line"><span class="tl-q">Не нашли ответ?</span><a href="https://wa.me/79687744410?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%98%D0%BD%D1%82%D0%B5%D1%80%D0%B5%D1%81%D1%83%D0%B5%D1%82%20%C2%AB%D0%A7%D0%B0%D0%B9%D0%BA%D0%BE%D0%B2%D1%81%D0%BA%D0%B8%D0%B9%C2%BB." target="_blank" rel="noopener">Напишите в WhatsApp</a></p>
+  </div>
+</section>
+
+<section id="why-now" style="border-top:2px solid rgba(169,133,79,.45)">
+  <div class="wrap">
+    <p class="chapter"><i>11</i> Почему сейчас</p>
+    <h2>В&nbsp;посёлке восемь участков. <br>Все застроены&nbsp;— дом можно осмотреть до&nbsp;покупки</h2>
+    <p class="lead"><span class="hs">Марина, СПА и корты клуба уже построены.</span> <span class="hs">Дом можно обойти и измерить, а не представлять по рендеру.</span></p>
+    <div class="market-grid">
+      <div class="mstat"><b class="num">6 из 8</b> <p>свободны на 25&nbsp;ноября 2026</p></div>
+      <div class="mstat"><b class="num">2024</b> <p>год постройки всех восьми домов</p></div>
+      <div class="mstat"><b class="num">500–700&nbsp;м</b> <p>до Истринского водохранилища</p></div>
     </div>
   </div>
 </section>
@@ -1733,7 +1777,6 @@ main>section#faq{border-top:1px solid var(--line);padding-top:clamp(56px,7vw,96p
       <div class="q-step" data-step="6" hidden>
         <p class="q-h" role="heading" aria-level="3">В каком бюджете смотрите?</p>
         <div class="q-opts">
-          <button class="q-opt" type="button">До 40&nbsp;млн&nbsp;₽</button>
           <button class="q-opt" type="button">40–45&nbsp;млн&nbsp;₽</button>
           <button class="q-opt" type="button">45–60&nbsp;млн&nbsp;₽</button>
           <button class="q-opt" type="button">Более 60&nbsp;млн&nbsp;₽</button>
@@ -1741,12 +1784,12 @@ main>section#faq{border-top:1px solid var(--line);padding-top:clamp(56px,7vw,96p
         <button class="q-back" type="button">← Назад</button>
       </div>
       <div class="q-step" data-step="7" hidden>
-        <p class="q-h" role="heading" aria-level="3">Последний шаг: куда прислать каталог?</p>
+        <p class="q-h" role="heading" aria-level="3">Последний шаг — и каталог откроется</p>
         <form class="q-form" id="quizForm">
           <div class="hp-field" aria-hidden="true"><label>Оставьте это поле пустым<input type="text" name="il2_note" tabindex="-1" autocomplete="off"></label></div>
           <div class="field"><label for="qname">Имя</label><input id="qname" name="name" autocomplete="name" required></div>
           <div class="field"><label for="qphone">Телефон</label><input id="qphone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+7 ___ ___-__-__" pattern="[0-9+\(\)\-\s]{10,18}" required><span class="phone-err" id="qPhoneErr" hidden>Проверьте номер — нужно 10 цифр после кода страны</span></div>
-          <div class="field"><label>Куда прислать</label>
+          <div class="field"><label>Как удобнее связаться</label>
             <div class="chips">
               <label><input type="radio" name="qm" value="WhatsApp" checked><span>WhatsApp</span></label>
               <label><input type="radio" name="qm" value="Email"><span>На почту</span></label>
@@ -1755,7 +1798,7 @@ main>section#faq{border-top:1px solid var(--line);padding-top:clamp(56px,7vw,96p
           </div>
           <div class="field" id="qEmailField" hidden><label for="qemail">Email</label><input id="qemail" name="email" type="email" inputmode="email" autocomplete="email" placeholder="name@mail.ru"></div>
           <label class="agree"><input type="checkbox" required><span>Даю <a href="consent.html" target="_blank" rel="noopener">согласие на обработку персональных данных</a> и принимаю <a href="privacy.html" target="_blank" rel="noopener">политику конфиденциальности</a>. Никаких рассылок — каталог и один звонок.</span></label>
-          <p class="form-note">Каталог пришлёт лично Фёдор, менеджер проекта; номер нужен только для связи по вашему запросу.</p>
+          <p class="form-note">Каталог откроется сразу после отправки. Фёдор, менеджер проекта, свяжется один раз; номер нужен только для связи по вашему запросу.</p>
           <button class="btn gold" type="submit" style="justify-self:start">Получить каталог с ценами</button>
           <div class="lead-fail" id="qLeadFail" hidden>Не отправилось — похоже, сбой связи. Позвоните <a href="tel:+79687744410">+7&nbsp;968&nbsp;77-444-10</a> или напишите в <a href="https://wa.me/79687744410" target="_blank" rel="noopener">WhatsApp</a>. Можно попробовать отправить форму ещё раз.</div>
         </form>
@@ -1841,7 +1884,7 @@ main>section#faq{border-top:1px solid var(--line);padding-top:clamp(56px,7vw,96p
     <h3 id="pmTitle"></h3>
     <p id="pmText"></p>
     <div class="pm-cta">
-      <a class="btn gold" id="pmGo" href="#quiz" hidden>Подобрать дом</a>
+      <a class="btn gold" id="pmGo" href="#quiz" hidden>Получить каталог</a>
       <button type="button" class="pm-later" id="pmOk">Хорошо</button>
     </div>
   </div>
@@ -1853,6 +1896,7 @@ main>section#faq{border-top:1px solid var(--line);padding-top:clamp(56px,7vw,96p
   <button type="button" class="lb-next" aria-label="Следующее фото">›</button>
   <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Изображение крупно">
 </dialog>
+<div class="mbar" id="mbar"><a class="mb-wa" href="https://wa.me/79687744410?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%98%D0%BD%D1%82%D0%B5%D1%80%D0%B5%D1%81%D1%83%D0%B5%D1%82%20%C2%AB%D0%A7%D0%B0%D0%B9%D0%BA%D0%BE%D0%B2%D1%81%D0%BA%D0%B8%D0%B9%C2%BB." target="_blank" rel="noopener">WhatsApp</a><a class="mb-show" href="#show">Записаться на показ</a></div>
 <button class="to-top" id="toTop" aria-label="Наверх" title="Наверх">↑</button>
 
 <script>
@@ -1872,7 +1916,6 @@ main>section#faq{border-top:1px solid var(--line);padding-top:clamp(56px,7vw,96p
     if(h.indexOf('tel:')===0){track('click_phone');if(a.classList.contains('call-float'))track('click_phone_float')}
     else if(h.indexOf('wa.me')>-1)track('click_whatsapp');
     else if(h.indexOf('yandex.ru/maps/?rtext')>-1)track('route_click');
-    else if(h.indexOf('yandex.ru/maps/org/')>-1)track('map_org_click');
   },true);
   // глубина скролла — по одному разу за визит
   var scrollGoalsSent={};
@@ -1883,7 +1926,7 @@ main>section#faq{border-top:1px solid var(--line);padding-top:clamp(56px,7vw,96p
     [50,90].forEach(function(m){if(!scrollGoalsSent[m]&&p>=m){scrollGoalsSent[m]=true;track('scroll_'+m)}});
   },{passive:true});
   // доскролл до таблицы сравнения
-  var cmpEl=document.querySelector('.cmp-scroll');
+  var cmpEl=document.querySelector('.vs');
   if(cmpEl&&'IntersectionObserver' in window){
     var cmpT;
     var cmpIo=new IntersectionObserver(function(es){es.forEach(function(en){if(!en.isIntersecting){clearTimeout(cmpT);return}cmpT=setTimeout(function(){track('compare_view');cmpIo.disconnect()},1500)})},{threshold:.3});
@@ -2042,7 +2085,7 @@ main>section#faq{border-top:1px solid var(--line);padding-top:clamp(56px,7vw,96p
     var sb=f.querySelector('button[type="submit"]');if(!sb)return;
     var row=document.getElementById('showLot');
     if(!showLotNum){if(row)row.parentNode.removeChild(row);return}
-    if(!row){row=document.createElement('p');row.id='showLot';row.className='show-lot';row.setAttribute('aria-live','polite');sb.parentNode.insertBefore(row,sb)}
+    if(!row){row=document.createElement('p');row.id='showLot';row.className='show-lot';row.setAttribute('aria-live','polite');var ff=f.querySelector('.field')||sb;ff.parentNode.insertBefore(row,ff)}
     row.innerHTML='<b>Дом №'+showLotNum+'</b><button type="button" aria-label="Убрать дом из заявки">Убрать</button>';
     row.querySelector('button').addEventListener('click',function(){setShowLot('')});
   }
@@ -2050,7 +2093,34 @@ main>section#faq{border-top:1px solid var(--line);padding-top:clamp(56px,7vw,96p
     a.addEventListener('click',function(){
       var n=a.getAttribute('data-show-lot');
       setShowLot(n);track('lot_show_click',{lot:n});
-      if(!window.__lenis){var t=document.getElementById('show');if(t&&t.scrollIntoView){try{t.scrollIntoView({behavior:'smooth',block:'start'})}catch(err){t.scrollIntoView()}}}
+      });
+  });
+
+  // 26.11 — нижняя панель на телефоне: WhatsApp + запись на показ
+  (function(){
+    var mb=document.getElementById('mbar');if(!mb)return;
+    var tick=false;
+    function vis(id){var el=document.getElementById(id);if(!el)return false;var r=el.getBoundingClientRect();return r.top<innerHeight-90&&r.bottom>90}
+    function upd(){
+      tick=false;
+      var show=(window.pageYOffset||0)>innerHeight*0.7;
+      if(show&&(vis('quiz')||vis('showForm')))show=false;
+      var ae=document.activeElement;if(ae&&/^(INPUT|TEXTAREA|SELECT)$/.test(ae.tagName))show=false;
+      mb.classList.toggle('on',show);document.body.classList.toggle('mbar-on',show);
+    }
+    function q(){if(tick)return;tick=true;setTimeout(upd,120)}
+    addEventListener('scroll',q,{passive:true});addEventListener('resize',q);
+    document.addEventListener('focusin',q);document.addEventListener('focusout',function(){setTimeout(q,60)});
+    mb.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a');if(a)track(a.classList.contains('mb-wa')?'mbar_whatsapp':'mbar_show')});
+    upd();
+  })();
+  // кнопки показа ведут к самой форме (а не к заголовку раздела)
+  document.querySelectorAll('a.btn[href="#show"],a[data-show-lot],.tap-line a[href="#show"],.mbar a[href="#show"]').forEach(function(a){
+    a.addEventListener('click',function(e){
+      if(window.__lenis)return;
+      var t=document.getElementById('showForm');if(!t||!t.scrollIntoView)return;
+      e.preventDefault();
+      try{t.scrollIntoView({behavior:'smooth',block:'start'})}catch(err){t.scrollIntoView()}
     });
   });
   document.querySelectorAll('a[data-wa-lot]').forEach(function(a){
@@ -2231,7 +2301,7 @@ main>section#faq{border-top:1px solid var(--line);padding-top:clamp(56px,7vw,96p
     pmInviteOff=true;
     try{sessionStorage.setItem('pmSeen','1')}catch(e){}
     track('popup_quiz_show');
-    pmShow('Подберём дом за минуту','Шесть коротких вопросов — и Фёдор пришлёт каталог свободных домов с ценами.',true);
+    pmShow('Каталог свободных домов с ценами','Шесть коротких вопросов — и каталог с планировками и ценами откроется сразу.',true);
   }
   setTimeout(pmInviteTry,60000);
   addEventListener('scroll',function(){
@@ -2255,7 +2325,7 @@ main>section#faq{border-top:1px solid var(--line);padding-top:clamp(56px,7vw,96p
     var fail=document.getElementById('qLeadFail');if(fail)fail.hidden=true;
     sendLead('Заявка на каталог (квиз)',{
       'Имя':fd.get('name'),'Телефон':phone,'Куда прислать':ch,'Email':fd.get('email'),
-      'Резиденция':answers.lot?('№'+answers.lot):'',
+      'Дом':answers.lot?('№'+answers.lot):'',
       'Зачем дом':answers.step1,'Состав семьи':answers.step2,'Что важнее':answers.step3,
       'Срок решения':answers.step4,'Интерьер':answers.step5,'Бюджет':answers.step6
     }).then(function(res){
@@ -2288,7 +2358,7 @@ main>section#faq{border-top:1px solid var(--line);padding-top:clamp(56px,7vw,96p
       if(!res.ok){btn.disabled=false;btn.textContent=origText;if(fail)fail.hidden=false;return}
       track('lead_show',{lot:showLotNum||''});
       pmShow('Спасибо — вы записаны','Фёдор позвонит один раз, чтобы согласовать дату показа, — в рабочее время, с 9:00 до 21:00.');
-      form.innerHTML='<div class="ok-msg"><b style="font-family:var(--serif);font-size:23px;display:block;margin-bottom:10px">Записали</b>Фёдор позвонит один раз, чтобы согласовать дату, — в рабочее время, с 9:00 до 21:00.</div>';
+      form.innerHTML='<div class="ok-msg"><b style="font-family:var(--serif);font-size:23px;display:block;margin-bottom:10px">Записали</b>Фёдор позвонит один раз, чтобы согласовать дату, — в рабочее время, с 9:00 до 21:00.<br><a class="ok-cat" href="catalog.html?utm_source=site&amp;utm_medium=show_done" target="_blank" rel="noopener">Открыть каталог →</a></div>';
     });
   });
 })();
@@ -2398,6 +2468,7 @@ main>section#faq{border-top:1px solid var(--line);padding-top:clamp(56px,7vw,96p
       a.addEventListener('click',function(e){
         var id=a.getAttribute('href');if(id.length<2)return;
         var t=document.querySelector(id);if(!t)return;
+        if(id==='#show'&&(a.hasAttribute('data-show-lot')||a.classList.contains('btn')||a.closest('.tap-line'))){t=document.getElementById('showForm')||t}
         e.preventDefault();lenis.scrollTo(t,{offset:-96,duration:1.4});
         try{if(id==='#quiz'||id==='#show'){history.replaceState(null,'',id)}else{history.replaceState(null,'',location.pathname+location.search)}}catch(err){}
       });
@@ -2581,7 +2652,7 @@ main>section#faq{border-top:1px solid var(--line);padding-top:clamp(56px,7vw,96p
 })();
 </script>
 
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Сколько стоит дом на Истринском водохранилище?", "acceptedAnswer": {"@type": "Answer", "text": "На ноябрь 2026: от 40 до 60 млн ₽ за дом с участком — цены открыты. 40 млн ₽ — дома у парка с участком 9 соток; 42–43 млн ₽ — с участком 12–13 соток; 60 млн ₽ — угловой дом у леса с монолитными несущими стенами. Дома построены и продаются без внутренней отделки. Посёлок — на второй линии, до воды 500–700 метров. Цена каждого свободного дома — в разделе «Дома и цены»."}}, {"@type": "Question", "name": "В каком состоянии дом и что остаётся сделать?", "acceptedAnswer": {"@type": "Answer", "text": "Дом построен: фундамент, несущие стены, перекрытия, кровля; газ, вода, канализация и электричество 15 кВт заведены в дом. Остаётся вам: котёл и отопление, внутренняя разводка, перегородки, отделка и интерьер. На это уходит от 6 месяцев — срок зависит от проекта."}}, {"@type": "Question", "name": "Можно ли купить готовый дом и сразу заехать?", "acceptedAnswer": {"@type": "Answer", "text": "Сразу — нет. Дом построен, газ, вода, канализация и электричество заведены, но отопление, отделку и интерьер делает владелец. На это уходит от 6 месяцев; срок зависит от проекта и подрядчика. При покупке можно обсудить дизайн-проект в подарок."}}, {"@type": "Question", "name": "Посёлок стоит на берегу Истринского водохранилища?", "acceptedAnswer": {"@type": "Answer", "text": "Нет, это вторая линия: до воды 500–700 метров. На первой линии — закрытый яхт-клуб «Мечта» с набережной и мариной. Выход к воде — через пляж «Лесные Дали» (300–400 метров от посёлка) или набережную яхт-клуба; доступ туда оформляется отдельно, по желанию."}}, {"@type": "Question", "name": "Клуб входит в цену дома?", "acceptedAnswer": {"@type": "Answer", "text": "Нет, членство оформляется и оплачивается отдельно. Яхт-клуб «Мечта» — соседняя закрытая территория на первой линии; до ворот клуба от посёлка около 500 метров. По договорённости с клубом владельцы домов «Чайковского» могут подать заявку на вступление — сразу, позже или не вступать вовсе. Порядок и условия устанавливает клуб, действующие назовёт менеджер."}}, {"@type": "Question", "name": "Сколько стоит содержание дома в посёлке?", "acceptedAnswer": {"@type": "Answer", "text": "Около 25–26 тыс. ₽ в месяц управляющей компании посёлка (данные на ноябрь 2026): охрана, освещение, уборка дорог зимой и летом, вывоз мусора — территорию посёлка обслуживают круглый год. Коммуналка — отдельно, по счётчикам. Клуб и пляж «Лесные Дали» — по желанию; условия устанавливают клуб и пляж, действующие назовёт менеджер."}}, {"@type": "Question", "name": "Можно ли купить дом в рассрочку?", "acceptedAnswer": {"@type": "Answer", "text": "Да. Рассрочка 0% — напрямую от застройщика, без банка, на срок от 6 до 12 месяцев. Условия индивидуальные и обсуждаются после встречи в посёлке."}}, {"@type": "Question", "name": "Можно ли купить дом в ипотеку?", "acceptedAnswer": {"@type": "Answer", "text": "Ипотека возможна на обычных рыночных условиях — решение принимает банк. Льготные программы на такие дома, как правило, не распространяются. Подробности — у менеджера."}}, {"@type": "Question", "name": "Какой статус у земли?", "acceptedAnswer": {"@type": "Answer", "text": "Земля в собственности, не в аренде: категория — сельхозназначение, вид разрешённого использования — «дачное строительство». Выписку ЕГРН и документы на участок и дом ваш юрист получит до аванса."}}, {"@type": "Question", "name": "Где почитать отзывы и как проверить проект?", "acceptedAnswer": {"@type": "Answer", "text": "Отзывов жильцов пока нет: дома построены в 2024 году, два из восьми проданы. Проверить проект можно на месте: дома построены, коммуникации заведены. Реквизиты продавца и документы на землю и дом ваш юрист получит до аванса."}}, {"@type": "Question", "name": "Насколько это ликвидно?", "acceptedAnswer": {"@type": "Answer", "text": "Прогнозов по ценам мы не даём. Факты такие: два дома из восьми уже проданы, все восемь построены, до Истринского водохранилища — 500–700 метров."}}, {"@type": "Question", "name": "Сколько ехать от Москвы до посёлка «Чайковский. Истра-Лэнд 2»?", "acceptedAnswer": {"@type": "Answer", "text": "От 55 минут от МКАД по платной трассе М-11 (Ленинградское направление, через Солнечногорск) — это основной маршрут. Есть ещё два: Пятницкое шоссе — от 50 минут без пробок, но в Зеленограде они часты; Новорижское шоссе с запада — около 1 ч 20 мин, запасной вариант."}}, {"@type": "Question", "name": "«Чайковский», «Истра-Лэнд 2», «Истра Лэнд 2» — это один посёлок?", "acceptedAnswer": {"@type": "Answer", "text": "Да. Посёлок из восьми домов у Истринского водохранилища называется «Чайковский. Истра-Лэнд 2». На Яндекс Картах он записан как «Истра Лэнд 2»; встречаются также написания «Истра Ленд 2», «КП Истра-Лэнд 2», «коттеджный посёлок Истра-Лэнд 2» и Istra Land 2."}}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Сколько стоит дом на Истринском водохранилище?", "acceptedAnswer": {"@type": "Answer", "text": "На ноябрь 2026: от 40 до 60 млн ₽ за дом с участком — цены открыты. 40 млн ₽ — дома у парка с участком 9 соток; 42–43 млн ₽ — с участком 12–13 соток; 60 млн ₽ — угловой дом у леса с монолитными несущими стенами. Дома построены и продаются без внутренней отделки. Посёлок — на второй линии, до воды 500–700 метров. Цена каждого свободного дома — в разделе «Дома и цены»."}}, {"@type": "Question", "name": "В каком состоянии дом и что остаётся сделать?", "acceptedAnswer": {"@type": "Answer", "text": "Дом построен: фундамент, несущие стены, перекрытия, кровля; газ, вода, канализация и электричество 15 кВт заведены в дом. Остаётся вам: котёл и отопление, внутренняя разводка, перегородки, отделка и интерьер. На это уходит от 6 месяцев — срок зависит от проекта."}}, {"@type": "Question", "name": "Можно ли купить готовый дом и сразу заехать?", "acceptedAnswer": {"@type": "Answer", "text": "Сразу — нет. Дом построен, газ, вода, канализация и электричество заведены, но отопление, отделку и интерьер делает владелец. На это уходит от 6 месяцев; срок зависит от проекта и подрядчика. При покупке можно обсудить дизайн-проект в подарок."}}, {"@type": "Question", "name": "Посёлок стоит на берегу Истринского водохранилища?", "acceptedAnswer": {"@type": "Answer", "text": "Нет, это вторая линия: до воды 500–700 метров. На первой линии — закрытый яхт-клуб «Мечта» с набережной и мариной. Выход к воде — через пляж «Лесные Дали» (300–400 метров от посёлка) или набережную яхт-клуба."}}, {"@type": "Question", "name": "Клуб входит в цену дома?", "acceptedAnswer": {"@type": "Answer", "text": "Нет, членство в клубе оплачивается отдельно. Яхт-клуб «Мечта» — соседняя закрытая территория на первой линии; до ворот клуба от посёлка около 500 метров. По договорённости с клубом владельцы домов «Чайковского» могут подать заявку на вступление — сразу или позже, по своему желанию. Порядок и условия определяет клуб, действующие назовёт менеджер."}}, {"@type": "Question", "name": "Сколько стоит содержание дома в посёлке?", "acceptedAnswer": {"@type": "Answer", "text": "Около 25–26 тыс. ₽ в месяц управляющей компании посёлка (данные на ноябрь 2026): охрана, освещение, уборка дорог зимой и летом, вывоз мусора — территорию посёлка обслуживают круглый год. Коммуналка — отдельно, по счётчикам. Клуб и пляж «Лесные Дали» — по желанию; условия определяют клуб и пляж, действующие назовёт менеджер."}}, {"@type": "Question", "name": "Можно ли купить дом в рассрочку?", "acceptedAnswer": {"@type": "Answer", "text": "Да. Рассрочка 0% — напрямую от застройщика, без банка, на срок от 6 до 12 месяцев. Условия индивидуальные и обсуждаются после встречи в посёлке."}}, {"@type": "Question", "name": "Можно ли купить дом в ипотеку?", "acceptedAnswer": {"@type": "Answer", "text": "Ипотека возможна на обычных рыночных условиях — решение принимает банк. Льготные программы на такие дома, как правило, не распространяются. Подробности — у менеджера."}}, {"@type": "Question", "name": "Какой статус у земли?", "acceptedAnswer": {"@type": "Answer", "text": "Земля в собственности, не в аренде: категория — сельхозназначение, вид разрешённого использования — «дачное строительство». Выписку ЕГРН и документы на участок и дом ваш юрист получит до аванса."}}, {"@type": "Question", "name": "Где почитать отзывы и как проверить проект?", "acceptedAnswer": {"@type": "Answer", "text": "Отзывов жильцов пока нет: дома построены в 2024 году, два из восьми проданы. Проверить проект можно на месте: дома построены, коммуникации заведены. Реквизиты продавца и документы на землю и дом ваш юрист получит до аванса."}}, {"@type": "Question", "name": "Насколько это ликвидно?", "acceptedAnswer": {"@type": "Answer", "text": "Прогнозов по ценам мы не даём. Факты такие: два дома из восьми уже проданы, все восемь построены, до Истринского водохранилища — 500–700 метров."}}, {"@type": "Question", "name": "Сколько ехать от Москвы до посёлка «Чайковский. Истра-Лэнд 2»?", "acceptedAnswer": {"@type": "Answer", "text": "От 55 минут от МКАД по платной трассе М-11 (Ленинградское направление, через Солнечногорск) — это основной маршрут. Есть ещё два: Пятницкое шоссе — от 50 минут без пробок, но в Зеленограде они часты; Новорижское шоссе с запада — около 1 ч 20 мин, запасной вариант."}}, {"@type": "Question", "name": "«Чайковский», «Истра-Лэнд 2», «Истра Лэнд 2» — это один посёлок?", "acceptedAnswer": {"@type": "Answer", "text": "Да. Посёлок из восьми домов у Истринского водохранилища называется «Чайковский. Истра-Лэнд 2». На Яндекс Картах он записан как «Истра Лэнд 2»; встречаются также написания «Истра Ленд 2», «КП Истра-Лэнд 2», «коттеджный посёлок Истра-Лэнд 2» и Istra Land 2."}}]}</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebSite", "name": "Истра-Лэнд 2", "alternateName": ["Посёлок «Чайковский»", "Истра Ленд 2", "Istra Land 2"], "url": "https://sergey-hut.github.io/istra-land2-site/"}</script>
 </body>
 </html>
